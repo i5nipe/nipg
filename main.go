@@ -35,14 +35,20 @@ func RollDicehttp(w http.ResponseWriter, r *http.Request) {
 			faces = 20
 		}
 
-		fmt.Fprintln(w, faces)
+		if faces >= 1000 {
+			fmt.Println("10000 é a quantidade maxima de lados")
+			return
+		}
+		result := RollDice(faces)
+		fmt.Fprintln(w, result)
 	} else {
 		faces = 20
-		fmt.Fprintln(w, faces)
+		result := RollDice(faces)
+		fmt.Fprintln(w, result)
 	}
 }
 
-func RollDice(faces int) {
+func RollDice(faces int) int {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(faces) + 1
 }
