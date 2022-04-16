@@ -21,7 +21,25 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Falha ao conectar no banco de dados INDEX")
 		panic(err.Error())
 	}
+	emp := Users{}
+	res := []Users{}
 
+	for selDB.Next() {
+		var id int
+		var user, password, role string
+
+		err = selDB.Scan(&id, &user, &password, &role)
+		if err != nil {
+			panic(err.Error())
+		}
+		emp.Id = id
+		emp.User = user
+		emp.Password = password
+		emp.Role = role
+		res = append(res, emp)
+	}
+
+	fmt.Println(res)
 	tmpl.ExecuteTemplate(w, "Index", res)
 	defer db.Close()
 }
@@ -29,7 +47,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	http.HandleFunc("/", Index)
-
 	http.HandleFunc("/api/dado", RollDicehttp)
 
 	fmt.Println("Server started at port 1313")

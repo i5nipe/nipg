@@ -6,15 +6,15 @@ import (
 )
 
 type Users struct {
-	id       int
-	user     string
-	password string
-	role     string
+	Id       int
+	User     string
+	Password string
+	Role     string
 }
 
 func dbConn() (db *sql.DB) {
 	dbDriver := "mysql"
-	dbUser := "root"
+	dbUser := "nipg"
 	dbPass := "root"
 	dbName := "nipg"
 
