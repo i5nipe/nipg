@@ -21,17 +21,21 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func RollDice(w http.ResponseWriter, r *http.Request) {
+	var faces int
 
-	keys, _ := r.URL.Query()["faces"]
+	keys, ok := r.URL.Query()["faces"]
 
-	faces := 20
-	faces_str := keys[0]
-	faces, err := strconv.Atoi(faces_str)
-	if err != nil {
-		fmt.Println("'?faces' não é um Inteiro")
+	if ok {
+		faces_str := keys[0]
+		faces, err := strconv.Atoi(faces_str)
+		if err != nil {
+			fmt.Println("'?faces' não é um Inteiro")
+			faces = 20
+		}
+
+		fmt.Fprintln(w, faces)
+	} else {
 		faces = 20
+		fmt.Fprintln(w, faces)
 	}
-
-	fmt.Fprintln(w, faces)
-
 }
