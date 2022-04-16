@@ -25,18 +25,18 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 func RollDicehttp(w http.ResponseWriter, r *http.Request) {
 	var faces int
 
-	keys, ok := r.URL.Query()["lados"]
+	keys, ok := r.URL.Query()["d"]
 
 	if ok {
 		faces_str := keys[0]
 		faces, err := strconv.Atoi(faces_str)
 		if err != nil {
-			fmt.Println("'?lados' não é um Inteiro")
+			fmt.Println("'?d' não é um Inteiro")
 			faces = 20
 		}
 
 		if faces >= 10000 {
-			fmt.Println("10000 é a quantidade maxima de lados")
+			fmt.Println("9999 é a quantidade maxima de lados")
 			return
 		}
 		result := rollDice(faces)
