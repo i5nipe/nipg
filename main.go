@@ -2,24 +2,38 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"math/rand"
 	"net/http"
 	"strconv"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
+
+var tmpl = template.Must(template.ParseGlob("form/*"))
+
+func Index(w http.ResponseWriter, r *http.Request) {
+	db := dbConn()
+
+	selDB, err := db.Query("SELECT * FROM users ORDER BY id DESC")
+	if err != nil {
+		fmt.Println("Falha ao conectar no banco de dados INDEX")
+		panic(err.Error())
+	}
+
+	tmpl.ExecuteTemplate(w, "Index", res)
+	defer db.Close()
+}
 
 func main() {
 
-	http.HandleFunc("/", HelloHandler)
+	http.HandleFunc("/", Index)
 
 	http.HandleFunc("/api/dado", RollDicehttp)
 
 	fmt.Println("Server started at port 1313")
 	http.ListenAndServe(":1313", nil)
-}
-
-func HelloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Pagina principal")
 }
 
 func RollDicehttp(w http.ResponseWriter, r *http.Request) {

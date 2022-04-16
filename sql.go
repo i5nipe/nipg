@@ -14,9 +14,9 @@ type Users struct {
 
 func dbConn() (db *sql.DB) {
 	dbDriver := "mysql"
-	dbUser := ""
-	dbPass := ""
-	dbName := ""
+	dbUser := "root"
+	dbPass := "root"
+	dbName := "nipg"
 
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
@@ -24,8 +24,4 @@ func dbConn() (db *sql.DB) {
 		panic(err.Error())
 	}
 	return db
-}
-
-func main() {
-	fmt.Println("vim-go")
 }
