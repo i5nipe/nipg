@@ -47,10 +47,15 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	http.HandleFunc("/", Index)
+	http.HandleFunc("/dado", Dado)
 	http.HandleFunc("/api/dado", RollDicehttp)
 
 	fmt.Println("Server started at port 1313")
 	http.ListenAndServe(":1313", nil)
+}
+
+func Dado(w http.ResponseWriter, r *http.Request) {
+	tmpl.ExecuteTemplate(w, "Dado", nil)
 }
 
 func RollDicehttp(w http.ResponseWriter, r *http.Request) {

@@ -1,0 +1,10 @@
+{{ define "Dado" }}
+  {{  template "Header" }}
+    {{ template "Menu" }}
+	<h2> Rolar dado </h2>
+	<form method="GET" action="insert">
+		<label> Lados </label><input type="text" name="name" /><br />
+		<input type="submit" value="roll" />
+	</form>
+    	{{ template "Footer" }}
+{{ end }}
