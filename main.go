@@ -19,7 +19,7 @@ func main() {
 }
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello Word")
+	fmt.Fprintln(w, "Pagina principal")
 }
 
 func RollDicehttp(w http.ResponseWriter, r *http.Request) {
@@ -35,20 +35,20 @@ func RollDicehttp(w http.ResponseWriter, r *http.Request) {
 			faces = 20
 		}
 
-		if faces >= 1000 {
+		if faces >= 10000 {
 			fmt.Println("10000 é a quantidade maxima de lados")
 			return
 		}
-		result := RollDice(faces)
+		result := rollDice(faces)
 		fmt.Fprintln(w, result)
 	} else {
 		faces = 20
-		result := RollDice(faces)
+		result := rollDice(faces)
 		fmt.Fprintln(w, result)
 	}
 }
 
-func RollDice(faces int) int {
+func rollDice(faces int) int {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(faces) + 1
 }
